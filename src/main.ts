@@ -13,7 +13,7 @@ let num_clicks = 0;
 const button = document.createElement("button");
 button.innerHTML = "I'm button";
 button.onclick = () => {
-    num_clicks++;
-    button.innerHTML = `Buttoned (${num_clicks}) Times`;
-}
+  num_clicks++;
+  button.innerHTML = `Buttoned (${num_clicks}) Times`;
+};
 app.append(button);
