@@ -16,13 +16,16 @@ button.onclick = () => {
   num_clicks++;
   buttonUpdate();
 };
-function autoClick() {
-  num_clicks++;
+let lastTime: number = 0;
+function autoClick(timestamp: number) {
+  num_clicks += (timestamp - lastTime) / 1000;
+  lastTime = timestamp;
   buttonUpdate();
+  requestAnimationFrame(autoClick);
 }
-setInterval(autoClick, 1000);
+requestAnimationFrame(autoClick);
 app.append(button);
 
 function buttonUpdate() {
-  button.innerHTML = `Buttoned (${num_clicks}) Times`;
+  button.innerHTML = `Buttoned (${num_clicks.toFixed(2)}) Times`;
 }
