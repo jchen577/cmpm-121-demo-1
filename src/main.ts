@@ -14,9 +14,6 @@ const button = document.createElement("button");
 button.innerHTML = "👾";
 button.onclick = () => {
   num_clicks++;
-  if (num_clicks == 10) {
-    app.append(upgradeButton);
-  }
   buttonUpdate();
 };
 app.append(button);
@@ -27,6 +24,7 @@ app.append(count);
 
 const upgradeButton = document.createElement("button");
 upgradeButton.innerHTML = "Buy Automatic Clicking (10 clicks)";
+app.append(upgradeButton);
 
 let lastTime: number;
 let clickedUpgrade: boolean = false;
