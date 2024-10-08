@@ -11,21 +11,42 @@ app.append(header);
 
 let num_clicks: number = 0;
 const button = document.createElement("button");
-button.innerHTML = "I'm button";
+button.innerHTML = "👾";
 button.onclick = () => {
   num_clicks++;
+  if (num_clicks == 10) {
+    app.append(upgradeButton);
+  }
   buttonUpdate();
 };
-let lastTime: number = 0;
+app.append(button);
+
+const upgradeButton = document.createElement("button");
+upgradeButton.innerHTML = "Buy Automatic Clicking (10 clicks)";
+
+let lastTime: number;
+let clickedUpgrade: boolean = false;
+let growthRate: number = 0;
+upgradeButton.onclick = () => {
+  if (num_clicks >= 10) {
+    num_clicks -= 10;
+    clickedUpgrade = true;
+    growthRate++;
+    upgradeButton.innerHTML = "Upgrade Automatic Clicking (10 clicks)";
+    requestAnimationFrame(autoClick);
+  }
+};
 function autoClick(timestamp: number) {
-  num_clicks += (timestamp - lastTime) / 1000;
+  if (clickedUpgrade) {
+    lastTime = timestamp;
+    clickedUpgrade = false;
+  }
+  num_clicks += growthRate * ((timestamp - lastTime) / 1000);
   lastTime = timestamp;
   buttonUpdate();
   requestAnimationFrame(autoClick);
 }
-requestAnimationFrame(autoClick);
-app.append(button);
 
 function buttonUpdate() {
-  button.innerHTML = `Buttoned (${num_clicks.toFixed(2)}) Times`;
+  button.innerHTML = `Buttoned (👾${num_clicks.toFixed(2)}) Times`;
 }
