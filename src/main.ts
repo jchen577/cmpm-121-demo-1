@@ -24,6 +24,7 @@ app.append(count);
 
 const upgradeButton = document.createElement("button");
 upgradeButton.innerHTML = "Buy Automatic Clicking (10 clicks)";
+upgradeButton.disabled = true;
 app.append(upgradeButton);
 
 let lastTime: number;
@@ -51,4 +52,9 @@ function autoClick(timestamp: number) {
 
 function buttonUpdate() {
   count.innerHTML = `Buttoned (${num_clicks.toFixed(2)}) Times`;
+  if (num_clicks >= 10) {
+    upgradeButton.disabled = false;
+  } else {
+    upgradeButton.disabled = true;
+  }
 }
