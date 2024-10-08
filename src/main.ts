@@ -21,6 +21,10 @@ button.onclick = () => {
 };
 app.append(button);
 
+const count = document.createElement("div");
+count.innerHTML = `Buttoned (👾${num_clicks.toFixed(2)}) Times`;
+app.append(count);
+
 const upgradeButton = document.createElement("button");
 upgradeButton.innerHTML = "Buy Automatic Clicking (10 clicks)";
 
@@ -48,5 +52,5 @@ function autoClick(timestamp: number) {
 }
 
 function buttonUpdate() {
-  button.innerHTML = `Buttoned (👾${num_clicks.toFixed(2)}) Times`;
+  count.innerHTML = `Buttoned (${num_clicks.toFixed(2)}) Times`;
 }
