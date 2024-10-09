@@ -33,12 +33,50 @@ interface shopButton {
   purchased: number;
   fName: string;
   button: HTMLButtonElement;
+  description: string;
 }
 
 const availableItems: shopButton[] = [
-  { purchased: 0, price: 10, rate: 0.1, fName: "Alien Farm", button },
-  { purchased: 0, price: 100, rate: 2, fName: "Alien Breeder", button },
-  { purchased: 0, price: 1000, rate: 50, fName: "Alien Duplicator", button },
+  {
+    purchased: 0,
+    price: 10,
+    rate: 0.1,
+    fName: "Alien Farm",
+    button,
+    description: "Young Alien Farmer Added To The Field 👒",
+  },
+  {
+    purchased: 0,
+    price: 100,
+    rate: 2,
+    fName: "Alien Breeder",
+    button,
+    description: "The Date Matcher 💙",
+  },
+  {
+    purchased: 0,
+    price: 1000,
+    rate: 50,
+    fName: "Alien Duplicator",
+    button,
+    description: "Cheating The System 🖥️",
+  },
+  {
+    purchased: 0,
+    price: 10000,
+    rate: 1000,
+    fName: "Alien Generator",
+    button,
+    description: "Mass Production 🏭",
+  },
+  {
+    purchased: 0,
+    price: 1000000,
+    rate: 9999999,
+    fName: "???",
+    button,
+    description: "??? 👹",
+  },
 ];
 let lastTime: number;
 let clickedUpgrade: boolean = false;
@@ -56,6 +94,8 @@ function autoClick(timestamp: number) {
 
 for (let b = 0; b < availableItems.length; b++) {
   const currButton = document.createElement("button");
+  const desc = document.createElement("div");
+  desc.innerHTML = availableItems[b].description;
   currButton.innerHTML = `Upgrade ${availableItems[b].fName} (${availableItems[b].price} clicks for ${availableItems[b].rate} aliens/sec)(Bought ${availableItems[b].purchased} Times)`;
   availableItems[b].button = currButton;
   currButton.onclick = () => {
@@ -70,6 +110,7 @@ for (let b = 0; b < availableItems.length; b++) {
   };
   availableItems[b].button.disabled = true;
   app.append(currButton);
+  app.append(desc);
 }
 function buttonUpdate() {
   count.innerHTML = `Buttoned (${num_clicks.toFixed(2)}) Times`;
