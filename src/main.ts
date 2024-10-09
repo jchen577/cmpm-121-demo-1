@@ -34,21 +34,22 @@ app.append(upgradeButton);*/
 interface shopButton {
   button: HTMLButtonElement;
   purchased: number;
+  price: number;
 }
 const upgradeButton = createShopButton(
   10,
   0.1,
-  `Upgrade Automatic Clicking (10 clicks for 0.1 aliens/sec)`,
+  `Upgrade Automatic Clicking (10 clicks for 0.1 aliens/sec)`
 );
 const upgradeButton2 = createShopButton(
   100,
   2.0,
-  `Upgrade Automatic Clicking (100 clicks for 2 aliens/sec)`,
+  `Upgrade Automatic Clicking (100 clicks for 2 aliens/sec)`
 );
 const upgradeButton3 = createShopButton(
   1000,
   50.0,
-  `Upgrade Automatic Clicking (1000 clicks for 50 aliens/sec)`,
+  `Upgrade Automatic Clicking (1000 clicks for 50 aliens/sec)`
 );
 let lastTime: number;
 let clickedUpgrade: boolean = false;
@@ -75,16 +76,16 @@ function autoClick(timestamp: number) {
 function buttonUpdate() {
   count.innerHTML = `Buttoned (${num_clicks.toFixed(2)}) Times`;
   growthR.innerHTML = `Current Growth Rate: ${growthRate.toFixed(2)}`;
-  upgradeButton.button.innerHTML = `Upgrade Automatic Clicking (10 clicks for 0.1 aliens/sec)(Bought ${upgradeButton.purchased} Times)`;
-  upgradeButton2.button.innerHTML = `Upgrade Automatic Clicking (100 clicks for 2 aliens/sec)(Bought ${upgradeButton2.purchased} Times)`;
-  upgradeButton3.button.innerHTML = `Upgrade Automatic Clicking (1000 clicks for 50 aliens/sec)(Bought ${upgradeButton3.purchased} Times)`;
-  if (num_clicks >= 10) {
+  upgradeButton.button.innerHTML = `Upgrade Automatic Clicking (${upgradeButton.price.toFixed(2)} clicks for 0.1 aliens/sec)(Bought ${upgradeButton.purchased} Times)`;
+  upgradeButton2.button.innerHTML = `Upgrade Automatic Clicking (${upgradeButton2.price.toFixed(2)} clicks for 2 aliens/sec)(Bought ${upgradeButton2.purchased} Times)`;
+  upgradeButton3.button.innerHTML = `Upgrade Automatic Clicking (${upgradeButton3.price.toFixed(2)} clicks for 50 aliens/sec)(Bought ${upgradeButton3.purchased} Times)`;
+  if (num_clicks >= upgradeButton.price) {
     upgradeButton.button.disabled = false;
 
-    if (num_clicks >= 100) {
+    if (num_clicks >= upgradeButton2.price) {
       upgradeButton2.button.disabled = false;
     }
-    if (num_clicks >= 1000) {
+    if (num_clicks >= upgradeButton3.price) {
       upgradeButton3.button.disabled = false;
     }
   } else {
@@ -103,9 +104,11 @@ function createShopButton(cost: number, growth: number, text: string) {
   const shopButt = {} as shopButton;
   shopButt.button = button;
   shopButt.purchased = count;
+  shopButt.price = cost;
   button.onclick = () => {
-    if (num_clicks >= cost) {
-      num_clicks -= cost;
+    if (num_clicks >= shopButt.price) {
+      num_clicks -= shopButt.price;
+      shopButt.price = shopButt.price * 1.15;
       clickedUpgrade = true;
       growthRate += growth;
       shopButt.purchased++;
