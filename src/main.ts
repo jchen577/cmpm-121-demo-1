@@ -1,3 +1,4 @@
+//Credits for inspiration: https://scso-ucsc.github.io/Incremental-Game-Development/ and https://eltz36.github.io/cmpm-121-demo-1/
 import "./style.css";
 
 const PRICEGROWTH: number = 1.15;
